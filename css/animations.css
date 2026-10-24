@@ -1,0 +1,49 @@
+/* Named keyframes + route-transition classes. Durations come from tokens. */
+
+@keyframes slide-in-right { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@keyframes slide-out-left { from { transform: translateX(0); } to { transform: translateX(-28%); opacity: .6; } }
+@keyframes slide-in-left { from { transform: translateX(-28%); opacity: .6; } to { transform: translateX(0); opacity: 1; } }
+@keyframes slide-out-right { from { transform: translateX(0); } to { transform: translateX(100%); } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fade-out { from { opacity: 1; } to { opacity: 0; } }
+@keyframes scale-in { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: scale(1); } }
+@keyframes scale-out { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(.96); } }
+@keyframes sheet-up { from { transform: translateY(100%); } to { transform: translateY(0); } }
+@keyframes sheet-down { from { transform: translateY(var(--drag-y, 0px)); } to { transform: translateY(100%); } }
+@keyframes toast-in { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes pop { 0% { transform: scale(.6); opacity: 0; } 60% { transform: scale(1.08); opacity: 1; } 100% { transform: scale(1); } }
+@keyframes shutter-flash { 0% { opacity: 0; } 30% { opacity: .9; } 100% { opacity: 0; } }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
+@keyframes ring-pulse { 0% { transform: scale(.85); opacity: .9; } 100% { transform: scale(1.35); opacity: 0; } }
+@keyframes ring-out { 0% { transform: scale(1); opacity: .9; } 100% { transform: scale(1.9); opacity: 0; } }
+@keyframes scan { 0%, 100% { top: 4px; } 50% { top: calc(100% - 7px); } }
+@keyframes focus-in { 0% { transform: scale(1.06); opacity: .4; } 100% { transform: scale(1); opacity: 1; } }
+/* Splash · 2 s: pin drops → keyhole locks → ripple → wordmark reveals → exit */
+@keyframes splash-drop { 0% { transform: translateY(-70px) scale(.7); opacity: 0; } 55% { transform: translateY(4px) scale(1.03, .96); opacity: 1; } 75% { transform: translateY(-3px) scale(1); } 100% { transform: translateY(0) scale(1); opacity: 1; } }
+@keyframes splash-shadow { 0% { transform: scale(.2); opacity: 0; } 55% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
+@keyframes splash-key { 0% { transform: scale(0); } 70% { transform: scale(1.15); } 100% { transform: scale(1); } }
+@keyframes splash-ripple { 0% { transform: scale(.4); opacity: .7; } 100% { transform: scale(2.6); opacity: 0; } }
+@keyframes splash-word { 0% { max-width: 0; } 100% { max-width: 260px; } }
+@keyframes splash-word-in { 0% { transform: translateX(-18px); opacity: 0; } 100% { transform: translateX(0); opacity: 1; } }
+@keyframes splash-tag { 0% { transform: translateY(8px); opacity: 0; } 100% { transform: translateY(0); opacity: .85; } }
+@keyframes splash-exit { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(1.04); } }
+@keyframes pulse-dot { 0%, 100% { opacity: .35; } 50% { opacity: 1; } }
+
+.route-enter-forward { animation: slide-in-right var(--dur-screen) var(--ease-out) both; z-index: 2; }
+.route-exit-forward  { animation: slide-out-left var(--dur-screen) var(--ease-out) both; z-index: 1; }
+.route-enter-back    { animation: slide-in-left var(--dur-screen) var(--ease-out) both; z-index: 1; }
+.route-exit-back     { animation: slide-out-right var(--dur-screen) var(--ease-out) both; z-index: 2; }
+.route-enter-fade    { animation: fade-in var(--dur-fast) var(--ease-std) both; }
+.route-exit-fade     { animation: fade-out var(--dur-fast) var(--ease-std) both; }
+
+/* Rider extras */
+@keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+@keyframes splash-load { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes ill-walk { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
+@keyframes ill-fly { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(6px, -4px); } }
+@keyframes ill-bob { 0%, 100% { transform: translate(var(--bx, 0), 0); } 50% { transform: translate(var(--bx, 0), -3px); } }
+@keyframes pin-drop { 0% { transform: translateY(-28px); opacity: 0; } 60% { transform: translateY(3px); opacity: 1; } 100% { transform: translateY(0); } }
+@keyframes rise-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes card-flash { 0% { background-color: var(--accent-soft); } 100% { background-color: var(--bg-card); } }
+@keyframes belt-run { from { transform: translateX(0); } to { transform: translateX(-120px); } }
