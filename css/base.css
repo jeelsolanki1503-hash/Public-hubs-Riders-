@@ -1,0 +1,334 @@
+/* Body, stage, phone frame, device chrome, launcher, prototype panel. */
+
+body {
+  font-family: var(--font);
+  background: var(--page-bg);
+  color: #111111;
+  min-height: 100%;
+}
+
+.stage {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-7);
+  padding: var(--s-6);
+}
+
+/* ---------- Phone ---------- */
+
+.phone {
+  --chrome-top: var(--h-status);
+  --chrome-bottom: var(--h-home);
+  position: relative;
+  flex: 0 0 auto;
+  /* iPhone 17 Pro: exactly 402 × 874 pt. app.js zooms the whole device down
+     uniformly when the window is shorter, so layout never squashes. */
+  width: var(--w-phone);
+  height: var(--h-phone);
+  border-radius: 55px;
+  overflow: hidden;
+  background: var(--bg-app);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: var(--fs-body);
+  line-height: calc(var(--lh-body) * var(--lh-scale));
+  box-shadow: 0 0 0 10px #1A1A1A, 0 0 0 11px #3A3A3A;
+  isolation: isolate;
+}
+
+.statusbar {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: var(--h-status);
+  padding: 0 28px 0 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-app);
+  color: var(--ink);
+  z-index: 40;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.statusbar__time {
+  font-size: var(--fs-headline);
+  font-weight: var(--fw-semibold);
+  font-variant-numeric: tabular-nums;
+}
+
+.statusbar__icons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.phone[data-chrome="dark"] .statusbar {
+  background: var(--camera-bar);
+  color: var(--camera-ink);
+}
+
+.phone[data-chrome="scrim"] .statusbar {
+  background: transparent;
+}
+
+.home-indicator {
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  width: 140px;
+  height: 5px;
+  margin-left: -70px;
+  border-radius: var(--r-pill);
+  background: var(--ink);
+  z-index: 60;
+  pointer-events: none;
+}
+
+.phone[data-chrome="dark"] .home-indicator {
+  background: var(--camera-ink);
+}
+
+.viewport {
+  position: absolute;
+  top: var(--chrome-top);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+
+.overlay-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.overlay-layer > * {
+  pointer-events: auto;
+}
+
+.toast-region {
+  position: absolute;
+  left: var(--side);
+  right: var(--side);
+  bottom: var(--toast-bottom, 120px);
+  display: flex;
+  flex-direction: column-reverse;
+  gap: var(--s-2);
+  z-index: 55;
+  pointer-events: none;
+}
+
+/* ---------- Mobile: drop the frame, fill the viewport ---------- */
+
+@media (max-width: 520px) {
+  body {
+    background: var(--bg-app);
+  }
+
+  .stage {
+    display: block;
+    padding: 0;
+  }
+
+  .phone {
+    --chrome-top: env(safe-area-inset-top, 0px);
+    --chrome-bottom: env(safe-area-inset-bottom, 0px);
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    min-height: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .statusbar {
+    height: max(var(--chrome-top), 14px);
+    padding: 0;
+    background: transparent;
+  }
+
+  .statusbar__time,
+  .statusbar__icons,
+  .home-indicator {
+    display: none;
+  }
+}
+
+/* ---------- Launcher ---------- */
+
+.launcher {
+  padding: var(--s-6) var(--side) var(--s-8);
+}
+
+.launcher__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  margin-bottom: var(--s-6);
+}
+
+.launcher__logo {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+}
+
+.launcher__apps {
+  display: grid;
+  gap: var(--s-3);
+  margin: var(--s-4) 0 var(--s-7);
+}
+
+.launcher__section {
+  margin-top: var(--s-6);
+}
+
+/* ---------- Prototype panel ---------- */
+
+.devpanel {
+  flex: 0 0 280px;
+  align-self: center;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  padding: var(--s-5);
+  border-radius: var(--r-md);
+  background: #FFFFFF;
+  color: #111111;
+  font-size: var(--fs-subhead);
+  line-height: var(--lh-subhead);
+  border: 1px solid #E3E3E3;
+}
+
+.devpanel h2 {
+  font-size: var(--fs-headline);
+  line-height: var(--lh-headline);
+  font-weight: var(--fw-bold);
+}
+
+.devpanel__hint {
+  color: #6B6B6B;
+  font-size: var(--fs-footnote);
+  line-height: var(--lh-footnote);
+  margin-top: var(--s-1);
+}
+
+.devpanel__group {
+  margin-top: var(--s-5);
+}
+
+.devpanel__label {
+  display: block;
+  font-size: var(--fs-label);
+  line-height: var(--lh-label);
+  font-weight: var(--fw-semibold);
+  text-transform: uppercase;
+  letter-spacing: .6px;
+  color: #6B6B6B;
+  margin-bottom: var(--s-2);
+}
+
+.devpanel__links {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.devpanel__btn {
+  min-height: 36px;
+  padding: 0 var(--s-2);
+  border-radius: var(--r-xs);
+  border: 1px solid #C4C4C4;
+  background: #FFFFFF;
+  color: #111111;
+  font-size: var(--fs-footnote);
+  font-weight: var(--fw-semibold);
+  text-align: center;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.devpanel__btn:hover {
+  border-color: #111111;
+}
+
+.devpanel__btn[aria-current="page"],
+.devpanel__btn[aria-pressed="true"] {
+  background: #111111;
+  border-color: #111111;
+  color: #FFFFFF;
+}
+
+.devpanel__btn--wide {
+  width: 100%;
+  min-height: 40px;
+}
+
+.devpanel__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.devpanel__row > * {
+  flex: 1;
+}
+
+.devpanel select {
+  width: 100%;
+  min-height: 40px;
+  border-radius: var(--r-xs);
+  border: 1px solid #C4C4C4;
+  padding: 0 var(--s-2);
+  background: #FFFFFF;
+}
+
+.devpanel__close {
+  display: none;
+}
+
+@media (max-width: 860px) and (min-width: 521px) {
+  .stage {
+    flex-direction: column;
+  }
+
+  .devpanel {
+    flex-basis: auto;
+    width: var(--w-phone);
+    max-height: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .devpanel {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    max-height: none;
+    border-radius: 0;
+    border: 0;
+    padding-top: max(env(safe-area-inset-top, 0px), var(--s-5));
+    display: none;
+  }
+
+  .devpanel.is-open {
+    display: block;
+  }
+
+  .devpanel__close {
+    display: inline-flex;
+    float: right;
+  }
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
